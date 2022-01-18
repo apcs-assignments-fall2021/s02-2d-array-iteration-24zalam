@@ -39,7 +39,7 @@ public class MyMain {
     // of the 2D array that contain the word "apple"
     // For example, if col = 0, you should only look through
     // the values in column 0 of the array; likewise, if
-    // col = 2, you should only look through the values in column 2
+    // col = 2, you should only look through the values in column 22
 
     // Hint: remember how the indexOf() method works?
     // alternatively, consider the contains() method
