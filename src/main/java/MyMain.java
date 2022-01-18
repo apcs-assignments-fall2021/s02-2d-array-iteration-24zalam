@@ -7,20 +7,34 @@ public class MyMain {
     //      int x = "apple".compareTo("banana"); // x is negative
     //      int y = "banana".compareTo("apple"); // y is positive
     public static String findLastWord(String[] arr) {
-        // YOUR CODE HERE
-        return "";
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i+1; j < arr.length; j++) {
+                if (arr[i].compareTo(arr[j]) > 0) {
+                    String temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        return arr[arr.length-1];
     }
-
     // Given a 2D array, return an 1D array of the last word
     // in each row in the array
     // You can assume that the matrix will not be empty
     // Hint: use the previous method to help yourself!
     public static String[] findLastWord2D(String[][] mat) {
-        // YOUR CODE HERE
-        return null;
-    }
+            String[] arr = new String[mat.length];
+            for (int i = 0; i < mat.length; i++) {
+                arr[i] = findLastWord(mat[i]);
+            }
+            return arr;
+        }
 
-    // Given a 2D array and some column index col
+
+
+
+
+        // Given a 2D array and some column index col
     // finds the number of Strings in the specified column
     // of the 2D array that contain the word "apple"
     // For example, if col = 0, you should only look through
@@ -30,10 +44,14 @@ public class MyMain {
     // Hint: remember how the indexOf() method works?
     // alternatively, consider the contains() method
     public static int appleCounter(String[][] mat, int col) {
-        // YOUR CODE HERE
-        return -1;
+        int count = 0;
+        for (String[] strings : mat) {
+            if (strings[col].contains("apple")) {
+                count++;
+            }
+        }
+        return count;
     }
-
     // Given a 2D array, return the column number corresponding
     // to the column that contains the most Strings containing
     // the word "apple"
@@ -41,8 +59,19 @@ public class MyMain {
     // Hint: use your previous method!
     // Hint 2: you might need to loop through the columns!
     public static int findMostAppleColumn(String[][] mat) {
-        // YOUR CODE HERE
-        return -1;
+        int[] arr = new int[mat[0].length];
+        for (int i = 0; i < mat[0].length; i++) {
+            arr[i] = appleCounter(mat, i);
+        }
+        int max = arr[0];
+        int maxIn = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+                maxIn = i;
+            }
+        }
+        return maxIn;
     }
 
 
@@ -70,8 +99,18 @@ public class MyMain {
     //       from top to bottom
 
     public static int[][] pascal(int height) {
-        // YOUR CODE HERE
-        return null;
+        //ok please work
+        int[][] arr = new int[height][height];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j <= i; j++) {
+                if (j == 0 || j == i) {
+                    arr[i][j] = 1;
+                } else {
+                    arr[i][j] = arr[i-1][j-1] + arr[i-1][j];
+                }
+            }
+        }
+        return arr;
     }
 
 
@@ -107,9 +146,25 @@ public class MyMain {
     // * do you see any pattern for the row and col indexes for a diagonal?
     // * can you use a for loop that goes through that pattern?
     public static boolean isMagic(int[][] mat) {
-        // YOUR CODE HERE
-        return false;
+        int sum = 0;
+        for (int i = 0; i < mat.length; i++) {
+            sum += mat[i][i];
+        }
+        for (int i = 0; i < mat.length; i++) {
+            int sumRow = 0;
+            int sumCol = 0;
+            for (int j = 0; j < mat.length; j++) {
+                sumRow += mat[i][j];
+                sumCol += mat[j][i];
+            }
+            if (sumRow != sum || sumCol != sum) {
+                return false;
+            }
+        }
+        return true;
     }
+
+
 
 
     public static void main(String[] args) {
